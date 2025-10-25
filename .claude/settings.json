@@ -1,0 +1,16 @@
+{
+  "description": "Commit with minimal LLM usage",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dev/claude_commit_hook/.claude/hooks/command-interceptor.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
