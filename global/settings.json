@@ -1,0 +1,16 @@
+{
+  "description": "Global Claude Code settings - Commit automation with Claude",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.config/claude/hooks/command-interceptor.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
