@@ -13,23 +13,23 @@ SCRIPT_DIR="$HOME/dev/claude_commit_hook/"
 # Check if prompt matches any intercepted commands
 case "$STRIPPED_PROMPT" in
     commit)
-        # Run handler and capture exit code (stderr goes to hook logs)
-        "$SCRIPT_DIR/handle-commit.sh" 2>&1
+        # Run handler and capture output and exit code
+        HANDLER_OUTPUT=$("$SCRIPT_DIR/handle-commit.sh" 2>&1)
         EXIT_CODE=$?
 
-        # Block the original prompt and report result
+        # Block the original prompt and report result with full commit message
         if [ $EXIT_CODE -eq 0 ]; then
-            jq -n '{
+            jq -n --arg output "$HANDLER_OUTPUT" '{
                 "decision": "block",
-                "reason": "Commit created successfully",
+                "reason": ("Commit created successfully:\n\n" + $output),
                 "hookSpecificOutput": {
                     "hookEventName": "UserPromptSubmit"
                 }
             }'
         else
-            jq -n --arg code "$EXIT_CODE" '{
+            jq -n --arg code "$EXIT_CODE" --arg output "$HANDLER_OUTPUT" '{
                 "decision": "block",
-                "reason": ("Commit failed (exit code: " + $code + ")"),
+                "reason": ("Commit failed (exit code: " + $code + "):\n\n" + $output),
                 "hookSpecificOutput": {
                     "hookEventName": "UserPromptSubmit"
                 }

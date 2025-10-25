@@ -72,19 +72,15 @@ sed -e 's/^```.*$//' -e '/^[[:space:]]*$/d' "$COMMIT_MSG_FILE.raw" | \
 awk 'NR==1{print; print ""; next} 1' "$COMMIT_MSG_FILE" > "$COMMIT_MSG_FILE.formatted"
 mv "$COMMIT_MSG_FILE.formatted" "$COMMIT_MSG_FILE"
 
-# Display the generated commit message
-echo "" >&2
-echo "Proposed commit message:" >&2
-echo "========================" >&2
-cat "$COMMIT_MSG_FILE" >&2
-echo "========================" >&2
-echo "" >&2
-
 # Commit automatically (non-interactive)
-if git commit -F "$COMMIT_MSG_FILE" 2>&1; then
-    echo "Commit created successfully!" >&2
+if COMMIT_OUTPUT=$(git commit -F "$COMMIT_MSG_FILE" 2>&1); then
+    # Output the full commit message to stdout for the hook to capture
+    cat "$COMMIT_MSG_FILE"
+    echo "" # Separator
+    echo "$COMMIT_OUTPUT" >&2
     exit 0
 else
     echo "Error: git commit failed" >&2
+    echo "$COMMIT_OUTPUT" >&2
     exit 2
 fi
