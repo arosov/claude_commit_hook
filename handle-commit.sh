@@ -62,9 +62,18 @@ Generate only the commit message, no additional commentary."
 
 # Use Claude CLI in non-interactive mode to generate commit message
 echo "Generating commit message with Claude..." >&2
-echo "$CLAUDE_PROMPT" | claude > "$COMMIT_MSG_FILE"
+echo "$CLAUDE_PROMPT" | claude > "$COMMIT_MSG_FILE.raw"
+
+# Strip markdown code fences if present (Claude often wraps responses in ```)
+sed -e 's/^```.*$//' -e '/^[[:space:]]*$/d' "$COMMIT_MSG_FILE.raw" | \
+    sed '1{/^[[:space:]]*$/d;}' > "$COMMIT_MSG_FILE"
+
+# Re-add proper spacing after first line
+awk 'NR==1{print; print ""; next} 1' "$COMMIT_MSG_FILE" > "$COMMIT_MSG_FILE.formatted"
+mv "$COMMIT_MSG_FILE.formatted" "$COMMIT_MSG_FILE"
 
 # Display the generated commit message
+echo "" >&2
 echo "Proposed commit message:" >&2
 echo "========================" >&2
 cat "$COMMIT_MSG_FILE" >&2
