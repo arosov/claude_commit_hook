@@ -3,6 +3,8 @@
 When 'commit' is used as prompt, use a hook to generate a commit with haiku
 using Claude Code in non-interactive CLI mode.
 
+"Inspired" by Aider's approach to coding agent commit management.
+
 Maybe this work on MacOS.
 
 Adapting to Windows should be possible but I'm not doing it, feel free to
@@ -13,8 +15,6 @@ contribute.
 No context bloat.
 
 Minimize token usage.
-
-"Inspired" by Aider's approach to coding agent commit management.
 
 But really, it's just a matter of using the LLM where it's actually relevant and
 doing with a script what can be done with a script.
