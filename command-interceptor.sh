@@ -8,7 +8,7 @@ INPUT="$(cat)"
 PROMPT=$(echo "$INPUT" | jq -r '.prompt')
 STRIPPED_PROMPT="${PROMPT%\"}"
 STRIPPED_PROMPT="${STRIPPED_PROMPT#\"}"
-SCRIPT_DIR="$HOME/.local/share/claude-commit-hook/"
+SCRIPT_DIR="$HOME/.local/share/claude-hook-handlers/"
 
 # Check if prompt matches any intercepted commands
 case "$STRIPPED_PROMPT" in

@@ -1,5 +1,5 @@
 {
-  "description": "Commit with minimal LLM usage",
+  "description": "Claude Code settings - Commit automation with Claude",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dev/claude_commit_hook/.claude/hooks/command-interceptor.sh"
+            "command": ".claude/hooks/command-interceptor.sh"
           }
         ]
       }
