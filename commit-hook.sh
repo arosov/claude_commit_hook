@@ -61,8 +61,8 @@ $(cat "$DIFF_FILE")
 Generate only the commit message, no additional commentary."
 
 # Use Claude CLI in non-interactive mode to generate commit message
-echo "Generating commit message with Claude..." >&2
-echo "$CLAUDE_PROMPT" | claude > "$COMMIT_MSG_FILE.raw"
+echo "Generating commit message with Claude Haiku ..." >&2
+echo "$CLAUDE_PROMPT" | claude --model haiku > "$COMMIT_MSG_FILE.raw"
 
 # Strip markdown code fences if present (Claude often wraps responses in ```)
 sed -e 's/^```.*$//' -e '/^[[:space:]]*$/d' "$COMMIT_MSG_FILE.raw" | \

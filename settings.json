@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.config/claude/hooks/command-interceptor.sh"
+            "command": "~/.claude/hooks/global-command-interceptor.sh"
           }
         ]
       }

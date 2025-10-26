@@ -14,7 +14,7 @@ SCRIPT_DIR="$HOME/.local/share/claude-commit-hook/"
 case "$STRIPPED_PROMPT" in
     commit)
         # Run handler and capture output and exit code
-        HANDLER_OUTPUT=$("$SCRIPT_DIR/handle-commit.sh" 2>&1)
+        HANDLER_OUTPUT=$("$SCRIPT_DIR/commit-hook.sh" 2>&1)
         EXIT_CODE=$?
 
         # Block the original prompt and report result with full commit message
